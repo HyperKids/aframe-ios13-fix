@@ -1,0 +1,41 @@
+<!-- not my code! i copied it from another project online, credits to https://elegant-dryosaurus.glitch.me/-->
+<!-- to use, upload to your glitch project root directory, then visit the file FIRST (eg your-project.glitch.com/access.html) and hit the button -->
+<!DOCTYPE html>
+<html>
+  <body>
+    <button
+      id="request"
+      style="height: 200px; width: 200px; margin: 50px auto;"
+    >
+      Request Permission
+    </button>
+
+    <script>
+      if (location.protocol != "https:") {
+        location.href =
+          "https:" +
+          window.location.href.substring(window.location.protocol.length);
+      }
+      function requestT() {
+        if (
+          typeof DeviceMotionEvent !== "undefined" &&
+          typeof DeviceMotionEvent.requestPermission === "function"
+        ) {
+          alert("enter");
+          DeviceMotionEvent.requestPermission()
+            .then(response => {
+              alert("resp" + response);
+              if (response == "granted") {
+                window.addEventListener("devicemotion", e => {});
+                window.location.href = "index.html";
+              }
+            })
+            .catch(console.error);
+        } else {
+          alert("DeviceMotionEvent is not defined");
+        }
+      }
+      document.getElementById("request").onclick = requestT;
+    </script>
+  </body>
+</html>
